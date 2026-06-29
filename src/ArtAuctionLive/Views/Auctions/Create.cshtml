@@ -1,0 +1,58 @@
+﻿@model ArtAuctionLive.ViewModels.CreateAuctionViewModel
+@{
+    ViewData["Title"] = "Create auction";
+}
+
+<a asp-action="Index" class="btn btn-link px-0 mb-3">&larr; All auctions</a>
+
+<h1 class="mb-4">Create a new auction</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Artist" class="form-label"></label>
+                <input asp-for="Artist" class="form-control" />
+                <span asp-validation-for="Artist" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImageUrl" class="form-label"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+                <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="StartingPrice" class="form-label"></label>
+                <input asp-for="StartingPrice" class="form-control" type="number" step="0.01" min="1" />
+                <span asp-validation-for="StartingPrice" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DurationMinutes" class="form-label"></label>
+                <input asp-for="DurationMinutes" class="form-control" type="number" min="1" max="1440" />
+                <span asp-validation-for="DurationMinutes" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create auction</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

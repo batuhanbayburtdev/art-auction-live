@@ -1,0 +1,16 @@
+﻿## .NET build output
+bin/
+obj/
+
+## Rider / IDE
+.idea/
+*.user
+
+## SQLite database + journals (regenerated on run; never commit)
+*.db
+*.db-shm
+*.db-wal
+
+## OS noise
+.DS_Store
+Thumbs.db

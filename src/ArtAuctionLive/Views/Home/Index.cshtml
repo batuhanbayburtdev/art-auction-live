@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-4 fw-bold">ArtAuctionLive</h1>
+    <div class="col-lg-7 mx-auto">
+        <p class="lead mb-4">
+            A real-time art auction platform. Bids, prices, the leaderboard and a live
+            countdown update instantly across every connected viewer — no page refresh.
+            Late bids trigger automatic overtime, and bidding is concurrency-safe under load.
+        </p>
+        <a asp-controller="Auctions" asp-action="Index" class="btn btn-primary btn-lg px-4">
+            Browse live auctions
+        </a>
+    </div>
+</div>
+
+<div class="row g-4 py-4 col-lg-10 mx-auto">
+    <div class="col-md-4 text-center">
+        <h5>Real-time bidding</h5>
+        <p class="text-muted small">Bids broadcast to all viewers instantly over WebSockets via SignalR.</p>
+    </div>
+    <div class="col-md-4 text-center">
+        <h5>Server-side countdown</h5>
+        <p class="text-muted small">A background service owns the clock, so every client sees the same time.</p>
+    </div>
+    <div class="col-md-4 text-center">
+        <h5>Anti-snipe overtime</h5>
+        <p class="text-muted small">A bid in the final 30 seconds extends the deadline automatically.</p>
+    </div>
+</div>

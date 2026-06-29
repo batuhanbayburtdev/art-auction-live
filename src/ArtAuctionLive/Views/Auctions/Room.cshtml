@@ -1,0 +1,68 @@
+﻿@model ArtAuctionLive.ViewModels.AuctionRoomViewModel
+@{
+    ViewData["Title"] = Model.PaintingTitle;
+    var isRunning = Model.Status == ArtAuctionLive.Models.Entities.AuctionStatus.Running;
+}
+
+<a asp-action="Index" class="btn btn-link px-0 mb-3">&larr; All auctions</a>
+
+<div class="row" data-auction-id="@Model.Id">
+    <div class="col-md-6">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" class="img-fluid rounded mb-3 painting-img" onerror="this.style.visibility='hidden'" alt="@Model.PaintingTitle">
+        }
+        <h2>@Model.PaintingTitle</h2>
+        <h5 class="text-muted">@Model.Artist</h5>
+        <p>@Model.Description</p>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="mb-1">Time left:
+                    <strong id="timer">@(isRunning ? "…" : "Ended")</strong>
+                </p>
+                <p class="mb-1">Current price:
+                    <strong><span id="currentPrice">@Model.CurrentPrice.ToString("0.00")</span> €</strong>
+                </p>
+                <p class="mb-0">Leader:
+                    <strong id="currentLeader">@(Model.CurrentLeader ?? "—")</strong>
+                </p>
+            </div>
+        </div>
+
+        <div id="bidPanel" class="card mb-3 @(isRunning ? "" : "d-none")">
+            <div class="card-body">
+                <div class="mb-2">
+                    <label class="form-label" for="bidderName">Your name</label>
+                    <input id="bidderName" class="form-control" maxlength="40" />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label" for="bidAmount">Your bid (€)</label>
+                    <input id="bidAmount" type="number" step="0.01" min="0" class="form-control" />
+                </div>
+                <button id="placeBid" class="btn btn-primary w-100">Place bid</button>
+                <div id="bidError" class="text-danger mt-2 small"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Recent bids</div>
+            <ul id="bidHistory" class="list-group list-group-flush">
+                @foreach (var bid in Model.RecentBids)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@bid.BidderName</span>
+                        <span>@bid.Amount.ToString("0.00") €</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/auction-room.js"></script>
+}
